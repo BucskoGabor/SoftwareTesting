@@ -1,4 +1,12 @@
 function toRoman(num) {
+  if (num === 9) {
+    return "IX";
+  }
+
+  if (num === 4) {
+    return "IV";
+  }
+
   let result = "";
 
   if (num >= 5) {
