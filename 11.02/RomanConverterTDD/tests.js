@@ -68,3 +68,13 @@ QUnit.test("3999 feletti szám érvénytelen", (assert) => {
   assert.throws(() => converter.toRoman(4000), RangeError);
   assert.throws(() => converter.toRoman(10000), RangeError);
 });
+
+QUnit.test("nem egész szám vagy nem szám érvénytelen", (assert) => {
+  assert.throws(() => converter.toRoman(4.5), TypeError);
+  assert.throws(() => converter.toRoman(0.1), TypeError);
+  assert.throws(() => converter.toRoman(NaN), TypeError);
+  assert.throws(() => converter.toRoman(Infinity), TypeError);
+  assert.throws(() => converter.toRoman("5"), TypeError);
+  assert.throws(() => converter.toRoman(null), TypeError);
+  assert.throws(() => converter.toRoman(undefined), TypeError);
+});
