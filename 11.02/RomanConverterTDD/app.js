@@ -15,6 +15,10 @@ const ROMAN_NUMERALS = [
 ];
 
 function toRoman(num) {
+  if (num < 1) {
+    throw new RangeError("A bemenetnek legalább 1-nek kell lennie");
+  }
+
   let rest = num;
   let result = "";
 
