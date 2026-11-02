@@ -31,3 +31,11 @@ QUnit.test("X: 10, 14, 19, 20, 39", (assert) => {
   assert.equal(converter.toRoman(20), "XX");
   assert.equal(converter.toRoman(39), "XXXIX");
 });
+
+QUnit.test("L, XL, XC: 40, 50, 58, 90, 99", (assert) => {
+  assert.equal(converter.toRoman(40), "XL");
+  assert.equal(converter.toRoman(50), "L");
+  assert.equal(converter.toRoman(58), "LVIII");
+  assert.equal(converter.toRoman(90), "XC");
+  assert.equal(converter.toRoman(99), "XCIX");
+});
