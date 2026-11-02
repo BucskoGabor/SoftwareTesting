@@ -1,20 +1,22 @@
+const ROMAN_NUMERALS = [
+  [9, "IX"],
+  [5, "V"],
+  [4, "IV"],
+  [1, "I"]
+];
+
 function toRoman(num) {
-  if (num === 9) {
-    return "IX";
-  }
-
-  if (num === 4) {
-    return "IV";
-  }
-
+  let rest = num;
   let result = "";
 
-  if (num >= 5) {
-    result += "V";
-    num -= 5;
+  for (const [value, symbol] of ROMAN_NUMERALS) {
+    while (rest >= value) {
+      result += symbol;
+      rest -= value;
+    }
   }
 
-  return result + "I".repeat(num);
+  return result;
 }
 
 if (typeof module !== "undefined" && module.exports) {
