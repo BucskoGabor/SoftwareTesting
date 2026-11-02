@@ -15,8 +15,8 @@ const ROMAN_NUMERALS = [
 ];
 
 function toRoman(num) {
-  if (num < 1) {
-    throw new RangeError("A bemenetnek legalább 1-nek kell lennie");
+  if (num < 1 || num > 3999) {
+    throw new RangeError("A bemenetnek 1 és 3999 között kell lennie");
   }
 
   let rest = num;
