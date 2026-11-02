@@ -19,3 +19,40 @@ Hibák:
    - age > 65: 65 éves korban nem adja meg a kedvezményt (65 éves kortól jár 40%, azaz age >= 65).
 3. Kedvezmények halmozása: A specifikáció szerint egyszerre csak a legnagyobb kedvezmény alkalmazható. A kód a diák kedvezményt (isStudent) halmozza az életkori kedvezménnyel.
 4. 3D felár hibás számítása: A specifikáció szerint 3D film esetén fix 800 Ft felár fizetendő, amire nem vonatkozik kedvezmény. A kód ehelyett az árat szorozza 1,8-cal (price * 1.8), ami nem fix 800 Ft, és a kedvezmény is hatással van rá.
+
+Javítás:
+
+- Érvénytelen életkor (age < 0 vagy age > 120) esetén hibát dob.
+- 6 év alatt ingyenes (age < 6), 6–17 év 30%, 65 évtől (age >= 65) 40% kedvezmény.
+- A diák kedvezmény nem halmozódik, a nagyobb kedvezmény érvényes (Math.max).
+- A 3D felár fix 800 Ft, a kedvezmény után adódik hozzá.
+
+```js
+function calculateTicketPrice(age, isStudent, is3D) {
+    if (!Number.isFinite(age) || age < 0 || age > 120) {
+        throw new Error("Érvénytelen életkor");
+    }
+
+    let discount = 0;
+
+    if (age < 6) {
+        discount = 1;
+    } else if (age < 18) {
+        discount = 0.30;
+    } else if (age >= 65) {
+        discount = 0.40;
+    }
+
+    if (isStudent) {
+        discount = Math.max(discount, 0.20);
+    }
+
+    let price = Math.round(3000 * (1 - discount));
+
+    if (is3D) {
+        price += 800;
+    }
+
+    return price;
+}
+```

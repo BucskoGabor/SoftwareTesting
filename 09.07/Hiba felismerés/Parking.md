@@ -17,3 +17,40 @@ Hibák:
 4. Negatív parkolási idő kezelésének hiánya: A kód nem ellenőrzi a negatív parkolási időt (minutes < 0).
 5. Specifikációs kétértelműség (kedvezmények halmozása): Nem tisztázott, hogy hétvégén a VIP ügyfél a csökkentett hétvégi díjból kap további 20%-ot (multiplikatív: 600 * 0.5 * 0.8 = 240 Ft, össz-kedvezmény: 60%), vagy a kedvezményráta adódik össze (additív: 50% + 20% = 70%, azaz 600 * 0.3 = 180 Ft).
 6. Napi maximális díj (5000 Ft) korlátjának rossz elhelyezése: A kód a 5000 Ft-os plafont a kedvezmények levonása után alkalmazza legvégül (if fee > 5000 fee = 5000). Emiatt egy egész napos (pl. 24 órás) parkolásnál a kedvezmények hatása teljesen elveszik, és a VIP ügyfél is ugyanúgy 5000 Ft-ot fizet, mint a normál ügyfél. Helyesen az alapdíjra kellene alkalmazni a 5000 Ft-os maximumot a kedvezmények kiszámítása előtt.
+7. A napi maximum nem naponként érvényesül: A kód a teljes díjat korlátozza 5000 Ft-ra, így pl. egy 3 napos parkolás is csak 5000 Ft, pedig a maximum naponta értendő.
+
+Javítás:
+
+- Negatív (vagy nem szám) parkolási idő esetén hibát dob.
+- 15 percig (minutes <= 15) ingyenes, felette minden megkezdett óra 600 Ft (Math.ceil).
+- A napi 5000 Ft-os maximum minden megkezdett napra külön érvényes, a kedvezmények előtt.
+- Hétvégén a díj 50%-a fizetendő, VIP esetén ebből további 20% kedvezmény jár (fee * 0.8, multiplikatív értelmezés).
+
+```js
+function calculateParkingFee(minutes, isWeekend, isVip) {
+    if (!Number.isFinite(minutes) || minutes < 0) {
+        throw new Error("Érvénytelen parkolási idő");
+    }
+
+    if (minutes <= 15) {
+        return 0;
+    }
+
+    const minutesPerDay = 24 * 60;
+    const fullDays = Math.floor(minutes / minutesPerDay);
+    const remainingMinutes = minutes % minutesPerDay;
+    const remainingFee = Math.min(Math.ceil(remainingMinutes / 60) * 600, 5000);
+
+    let fee = fullDays * 5000 + remainingFee;
+
+    if (isWeekend) {
+        fee = fee * 0.5;
+    }
+
+    if (isVip) {
+        fee = fee * 0.8;
+    }
+
+    return Math.round(fee);
+}
+```
