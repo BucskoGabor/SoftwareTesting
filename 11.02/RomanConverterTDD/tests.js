@@ -23,3 +23,11 @@ QUnit.test("kivonásos alak: 4 -> IV, 9 -> IX", (assert) => {
   assert.equal(converter.toRoman(4), "IV");
   assert.equal(converter.toRoman(9), "IX");
 });
+
+QUnit.test("X: 10, 14, 19, 20, 39", (assert) => {
+  assert.equal(converter.toRoman(10), "X");
+  assert.equal(converter.toRoman(14), "XIV");
+  assert.equal(converter.toRoman(19), "XIX");
+  assert.equal(converter.toRoman(20), "XX");
+  assert.equal(converter.toRoman(39), "XXXIX");
+});
