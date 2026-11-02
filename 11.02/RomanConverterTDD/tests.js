@@ -18,3 +18,8 @@ QUnit.test("V és utána I-ek: 5, 6, 7, 8", (assert) => {
   assert.equal(converter.toRoman(7), "VII");
   assert.equal(converter.toRoman(8), "VIII");
 });
+
+QUnit.test("kivonásos alak: 4 -> IV, 9 -> IX", (assert) => {
+  assert.equal(converter.toRoman(4), "IV");
+  assert.equal(converter.toRoman(9), "IX");
+});
