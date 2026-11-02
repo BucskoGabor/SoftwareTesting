@@ -63,3 +63,8 @@ QUnit.test("0 és negatív szám érvénytelen", (assert) => {
   assert.throws(() => converter.toRoman(-1), RangeError);
   assert.throws(() => converter.toRoman(-3999), RangeError);
 });
+
+QUnit.test("3999 feletti szám érvénytelen", (assert) => {
+  assert.throws(() => converter.toRoman(4000), RangeError);
+  assert.throws(() => converter.toRoman(10000), RangeError);
+});
