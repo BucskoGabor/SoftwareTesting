@@ -57,3 +57,9 @@ QUnit.test("a feladat példái és a felső határ", (assert) => {
   assert.equal(converter.toRoman(1994), "MCMXCIV");
   assert.equal(converter.toRoman(3999), "MMMCMXCIX");
 });
+
+QUnit.test("0 és negatív szám érvénytelen", (assert) => {
+  assert.throws(() => converter.toRoman(0), RangeError);
+  assert.throws(() => converter.toRoman(-1), RangeError);
+  assert.throws(() => converter.toRoman(-3999), RangeError);
+});
