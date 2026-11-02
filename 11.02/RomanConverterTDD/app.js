@@ -15,6 +15,10 @@ const ROMAN_NUMERALS = [
 ];
 
 function toRoman(num) {
+  if (typeof num !== "number" || !Number.isInteger(num)) {
+    throw new TypeError("A bemenetnek egész számnak kell lennie");
+  }
+
   if (num < 1 || num > 3999) {
     throw new RangeError("A bemenetnek 1 és 3999 között kell lennie");
   }
