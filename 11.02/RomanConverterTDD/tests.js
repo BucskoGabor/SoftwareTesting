@@ -39,3 +39,21 @@ QUnit.test("L, XL, XC: 40, 50, 58, 90, 99", (assert) => {
   assert.equal(converter.toRoman(90), "XC");
   assert.equal(converter.toRoman(99), "XCIX");
 });
+
+QUnit.test("C, CD, D, CM, M: 100, 400, 500, 900, 1000", (assert) => {
+  assert.equal(converter.toRoman(100), "C");
+  assert.equal(converter.toRoman(400), "CD");
+  assert.equal(converter.toRoman(500), "D");
+  assert.equal(converter.toRoman(900), "CM");
+  assert.equal(converter.toRoman(1000), "M");
+});
+
+QUnit.test("a feladat példái és a felső határ", (assert) => {
+  assert.equal(converter.toRoman(1), "I");
+  assert.equal(converter.toRoman(4), "IV");
+  assert.equal(converter.toRoman(9), "IX");
+  assert.equal(converter.toRoman(14), "XIV");
+  assert.equal(converter.toRoman(58), "LVIII");
+  assert.equal(converter.toRoman(1994), "MCMXCIV");
+  assert.equal(converter.toRoman(3999), "MMMCMXCIX");
+});
