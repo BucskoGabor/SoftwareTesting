@@ -1,3 +1,6 @@
+const MIN_VALUE = 1;
+const MAX_VALUE = 3999;
+
 const ROMAN_NUMERALS = [
   [1000, "M"],
   [900, "CM"],
@@ -14,14 +17,18 @@ const ROMAN_NUMERALS = [
   [1, "I"]
 ];
 
-function toRoman(num) {
+function validate(num) {
   if (typeof num !== "number" || !Number.isInteger(num)) {
     throw new TypeError("A bemenetnek egész számnak kell lennie");
   }
 
-  if (num < 1 || num > 3999) {
-    throw new RangeError("A bemenetnek 1 és 3999 között kell lennie");
+  if (num < MIN_VALUE || num > MAX_VALUE) {
+    throw new RangeError(`A bemenetnek ${MIN_VALUE} és ${MAX_VALUE} között kell lennie`);
   }
+}
+
+function toRoman(num) {
+  validate(num);
 
   let rest = num;
   let result = "";
